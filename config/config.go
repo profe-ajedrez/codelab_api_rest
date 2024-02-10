@@ -57,3 +57,11 @@ func Port() int {
 func Mock() bool {
 	return cfg.Mock
 }
+
+func SetMockingOn() {
+	cfg.Mock = true
+}
+
+func SetMockingOff() {
+	cfg.Mock = false
+}
