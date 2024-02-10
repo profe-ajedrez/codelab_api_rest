@@ -6,4 +6,5 @@ La rama [master](https://github.com/profe-ajedrez/codelab_api_rest) siempre cont
 
 [Codelab 1](https://github.com/profe-ajedrez/codelab_api_rest/tree/codelab_1) Contiene el código del primer codelab.
 
+[Codelab 2](https://github.com/profe-ajedrez/codelab_api_rest/tree/codelab_2) Contiene el código del segundo codelab.
 
