@@ -14,13 +14,6 @@ import (
 func TestActorGetByID(t *testing.T) {
 	config.SetMockingOn()
 
-	expectedActor, err := (model.MockActorCrud{}).Get(db.DB(), 1)
-
-	if err != nil {
-		t.Logf("couldnt get mock entity actor %v", err)
-		t.FailNow()
-	}
-
 	client := newActorClient()
 
 	for _, tesCase := range actorRequestCases {
@@ -40,8 +33,8 @@ func TestActorGetByID(t *testing.T) {
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode != tesCase.expectedCode {
-			t.Logf("Expected status code %d, got %d", tesCase.expectedCode, resp.StatusCode)
+		if resp.StatusCode != tesCase.expectedResponse.Code {
+			t.Logf("Expected status code %d, got %d", tesCase.expectedResponse.Code, resp.StatusCode)
 			t.FailNow()
 		}
 
@@ -60,6 +53,8 @@ func TestActorGetByID(t *testing.T) {
 			t.Log("couldnt extract actor info from response")
 			t.FailNow()
 		}
+
+		expectedActor := tesCase.expectedResponse.Data.(model.Actor)
 
 		if actor["firstName"] != expectedActor.FirstName {
 			t.Logf("Expected actor name to be %s, got, got %s", expectedActor.FirstName, actor["firstName"])
@@ -113,22 +108,18 @@ func newActorClient() mocks.HTTPClient {
 }
 
 var actorRequestCases = []struct {
-	url          string
-	expectedCode int
-	expectedBody string
+	url              string
+	expectedResponse ActorResponse
 }{
 	{
-		url:          "/actor/10",
-		expectedCode: 200,
-		expectedBody: `{
-	"code": 200,
-	"data": {
-		"firstName": "Pepito",
-		"id": 10,
-		"lastName": "Grillo",
-		"lastUpdate": "2014-02-04T18:05:00Z"
-	},
-	"status": "ok"
-}`,
+		url: "/actor/10",
+		expectedResponse: ActorResponse{
+			Status: "ok",
+			Code:   200,
+			Data: func() model.Actor {
+				a, _ := (model.MockActorCrud{}).Get(db.DB(), 1)
+				return a
+			}(),
+		},
 	},
 }
