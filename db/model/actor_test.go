@@ -2,6 +2,7 @@ package model
 
 import (
 	"os"
+	"restexample/config"
 	"restexample/db"
 	"testing"
 
@@ -10,8 +11,7 @@ import (
 
 func TestActorGetMock(t *testing.T) {
 
-	_ = godotenv.Load()
-	err := db.Open(os.Getenv("DEV_API_DB_DSN"), DEBUG_MODE, USE_MOCK_CONNECTION)
+	err := db.Open(os.Getenv("DEV_API_DB_DSN"), config.DEBUG_MODE, config.USE_MOCK_CONNECTION)
 
 	if err != nil {
 		t.Log(err)
@@ -43,7 +43,7 @@ func TestActorGetMock(t *testing.T) {
 func BenchmarkActorGetMock(b *testing.B) {
 
 	_ = godotenv.Load()
-	err := db.Open(os.Getenv("DEV_API_DB_DSN"), DEBUG_MODE, USE_MOCK_CONNECTION)
+	err := db.Open(os.Getenv("DEV_API_DB_DSN"), config.DEBUG_MODE, config.USE_MOCK_CONNECTION)
 
 	if err != nil {
 		b.Log(err)
