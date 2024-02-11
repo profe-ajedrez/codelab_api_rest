@@ -76,9 +76,5 @@ func NewActorCrud(mock bool) IActor {
 }
 
 const (
-	USE_MOCK_CONNECTION = true
-	NO_MOCK_CONNECTION  = false
-	DEBUG_MODE          = true
-	NO_DEBUG_MODE       = false
-	sqlGetActorByID     = `SELECT actor_id, first_name, last_name, last_update FROM actor WHERE actor_id = ?`
+	sqlGetActorByID = `SELECT actor_id, first_name, last_name, last_update FROM actor WHERE actor_id = ?`
 )

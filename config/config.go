@@ -57,3 +57,10 @@ func Port() int {
 func Mock() bool {
 	return cfg.Mock
 }
+
+const (
+	USE_MOCK_CONNECTION = true
+	NO_MOCK_CONNECTION  = false
+	DEBUG_MODE          = true
+	NO_DEBUG_MODE       = false
+)
